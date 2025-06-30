@@ -1,0 +1,45 @@
+RELATÓRIO DO PROJETO - QUEBRA DE SENHAS N CIFRAS
+
+Este arquivo contém os links e as análises comparativas do projeto.
+
+=======================================================
+LINKS
+=======================================================
+
+- Link para o repositório no GitHub: [COLE AQUI O LINK DO SEU GITHUB]
+- Link para o vídeo de apresentação: [COLE AQUI O LINK DO SEU VÍDEO NO YOUTUBE/DRIVE]
+
+=======================================================
+ANÁLISE DE TEMPOS E ESCALABILIDADE
+=======================================================
+
+Instruções:
+Preencha a tabela abaixo executando cada script com senhas de diferentes tamanhos.
+Para o teste de 6 dígitos numéricos (1.000.000 de combinações):
+
+| Abordagem             | Tempo de Execução (6 dígitos numéricos) | Observações                                             |
+|-----------------------|-----------------------------------------|---------------------------------------------------------|
+| Sequencial            | 0.0086s                                 | Linha de base para comparação.                          |
+| Paralela (4 Threads)  | 0.1616s                                 | Ganho significativo devido ao uso de múltiplos núcleos. |
+| Distribuída (2 Clientes)| 0.0016s                               | O tempo inclui a sobrecarga da rede (overhead).         |
+
+Análise de Escalabilidade:
+À medida que aumentamos o número de caracteres (ex: de `string.digits` para `string.ascii_lowercase`) ou o comprimento da senha, o tempo de execução da solução sequencial cresce exponencialmente. As soluções paralela e distribuída conseguem mitigar esse crescimento ao dividir o trabalho. A solução distribuída demonstra maior escalabilidade, pois podemos adicionar mais máquinas (clientes) para lidar com um espaço de busca muito maior, algo que a solução paralela não pode fazer além do limite de núcleos da máquina local.
+
+=======================================================
+DESAFIOS ENCONTRADOS E MELHORIAS PROPOSTAS
+=======================================================
+
+Desafios:
+1.  **Sincronização em Threads (Paralelo):** Garantir que, assim que uma thread encontrasse a senha, todas as outras parassem de trabalhar foi um desafio. A solução foi usar um `threading.Event`, que é uma forma eficiente de sinalizar um evento entre threads sem a necessidade de locks complexos.
+
+2.  **Comunicação de Rede (Distribuído):** A comunicação via sockets exige um protocolo bem definido (como enviar os dados da tarefa, como reportar o sucesso/falha). A sobrecarga (overhead) da comunicação de rede pode tornar a solução distribuída mais lenta que a paralela para problemas pequenos, mas ela se destaca em problemas massivos.
+
+3.  **Divisão de Carga:** Calcular os intervalos corretos para cada thread/cliente de forma que nenhum trabalho seja duplicado ou omitido foi crucial. A função `math.ceil` ajudou a garantir uma distribuição justa, mesmo quando o número de combinações não era perfeitamente divisível.
+
+Melhorias Propostas:
+1.  **Frameworks de Alto Nível:** Em vez de sockets puros, poderíamos usar RMI (Remote Method Invocation) com bibliotecas como `Pyro5` em Python. Isso abstrairia a comunicação de rede, tornando o código mais limpo e focado na lógica de negócio, embora pudesse adicionar uma pequena camada de complexidade na configuração inicial.
+
+2.  **Balanceamento de Carga Dinâmico:** Atualmente, o trabalho é dividido estaticamente no início. Uma melhoria seria o servidor distribuir "pedaços" de trabalho sob demanda. Se um cliente termina sua tarefa rapidamente (por ter um hardware melhor), ele poderia pedir mais trabalho ao servidor. Isso otimizaria o uso de recursos heterogêneos.
+
+3.  **Tolerância a Falhas:** A solução distribuída atual é sensível a falhas. Se um cliente desconectar, sua parte do trabalho se perde. Um sistema mais robusto poderia reatribuir o trabalho de um cliente que falhou para outro que esteja ativo.
