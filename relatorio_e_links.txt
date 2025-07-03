@@ -7,7 +7,6 @@ LINKS
 =======================================================
 
 - Link para o repositório no GitHub: https://github.com/dan-dealmeida/Exame_SistemasDistribuidos
-- Link para o vídeo de apresentação: 
 
 =======================================================
 ANÁLISE DE TEMPOS E ESCALABILIDADE
