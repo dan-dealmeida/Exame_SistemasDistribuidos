@@ -44,7 +44,7 @@ if __name__ == "__main__":
     CARACTERES_POSSIVEIS = string.digits
     #CARACTERES_POSSIVEIS += string.ascii_lowercase 
 
-    SENHA_ALVO = "123abc"
+    SENHA_ALVO = "123412"
 
     # --- Origem da Solução ---
     # Este código sequencial foi desenvolvido com base em princípios fundamentais de

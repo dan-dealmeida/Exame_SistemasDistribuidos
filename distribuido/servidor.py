@@ -14,9 +14,9 @@ def servidor():
     NUM_CLIENTES_ESPERADOS = 2 # Defina quantos clientes irão se conectar
 
     # --- Configuração do Problema ---
-    SENHA_ALVO = "234ads" # Senha menor para teste rápido
+    SENHA_ALVO = "123423123" # Senha menor para teste rápido
     CARACTERES = string.digits
-    CARACTERES += string.ascii_lowercase 
+    #CARACTERES += string.ascii_lowercase 
     TAMANHO_SENHA = len(SENHA_ALVO)
     ESPACO_BUSCA = len(CARACTERES) ** TAMANHO_SENHA
 
