@@ -41,10 +41,10 @@ if __name__ == "__main__":
     # Para senhas numéricas, use string.digits
     # Para senhas alfanuméricas (minúsculas), use string.ascii_lowercase
     # Para senhas mais complexas, combine os conjuntos
-    CARACTERES_POSSIVEIS = string.digits  # Apenas números (0-9)
+    CARACTERES_POSSIVEIS = string.digits
+    #CARACTERES_POSSIVEIS += string.ascii_lowercase 
 
-    # A senha a ser quebrada. Comece com 6 dígitos conforme o requisito.
-    SENHA_ALVO = "123456"
+    SENHA_ALVO = "123abc"
 
     # --- Origem da Solução ---
     # Este código sequencial foi desenvolvido com base em princípios fundamentais de

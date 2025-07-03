@@ -49,6 +49,8 @@ def cliente():
         listener.daemon = True
         listener.start()
 
+        tempo_inicial = time.time()
+
         for i, tentativa_tuple in enumerate(combinacoes):
             if i < inicio_range:
                 continue
@@ -61,7 +63,10 @@ def cliente():
 
             senha_tentada = "".join(tentativa_tuple)
             if senha_tentada == senha_alvo:
+                tempo_final = time.time()
+                tempo_execucao = tempo_final - tempo_inicial
                 print(f"!!! Senha encontrada: {senha_tentada} !!!")
+                print(f"Tempo de execução: {tempo_execucao:.4f} segundos.")
                 s.sendall(f"ENCONTRADA:{senha_tentada}".encode('utf-8'))
                 return # Encerra o cliente
 

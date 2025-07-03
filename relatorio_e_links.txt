@@ -6,26 +6,43 @@ Este arquivo contém os links e as análises comparativas do projeto.
 LINKS
 =======================================================
 
-- Link para o repositório no GitHub: [COLE AQUI O LINK DO SEU GITHUB]
-- Link para o vídeo de apresentação: [COLE AQUI O LINK DO SEU VÍDEO NO YOUTUBE/DRIVE]
+- Link para o repositório no GitHub: https://github.com/dan-dealmeida/Exame_SistemasDistribuidos
+- Link para o vídeo de apresentação: 
 
 =======================================================
 ANÁLISE DE TEMPOS E ESCALABILIDADE
 =======================================================
 
-Instruções:
-Preencha a tabela abaixo executando cada script com senhas de diferentes tamanhos.
 Para o teste de 6 dígitos numéricos (1.000.000 de combinações):
+| Abordagem             | Tempo de Execução (6 dígitos numéricos) | 
+|-----------------------|-----------------------------------------|
+| Sequencial            | 0.0086s                                 | 
+| Paralela (4 Threads)  | 0.1616s                                 |
+| Distribuída (2 Clientes)| 0.0481s                               |       
 
-| Abordagem             | Tempo de Execução (6 dígitos numéricos) | Observações                                             |
-|-----------------------|-----------------------------------------|---------------------------------------------------------|
-| Sequencial            | 0.0086s                                 | Linha de base para comparação.                          |
-| Paralela (4 Threads)  | 0.1616s                                 | Ganho significativo devido ao uso de múltiplos núcleos. |
-| Distribuída (2 Clientes)| 0.0016s                               | O tempo inclui a sobrecarga da rede (overhead).         |
+Para o teste de 8 dígitos numéricos (100.000.000 de combinações):
+| Abordagem             | Tempo de Execução (8 dígitos numéricos) |
+|-----------------------|-----------------------------------------|
+| Sequencial            | 1.0440s                                 |
+| Paralela (4 Threads)  | 17.3309s                                | 
+| Distribuída (2 Clientes)| 5.4292s                               | 
+
+Para o teste de 9 dígitos numéricos (1.000.000.000 (1 bilhão) de combinações):
+| Abordagem             | Tempo de Execução (9 dígitos numéricos) |
+|-----------------------|-----------------------------------------|
+| Sequencial            | 10.4465s                                 |
+| Paralela (4 Threads)  | 184.9746s                                | 
+| Distribuída (2 Clientes)| 56.5355s                               | 
+Obs: O meu script usa o módulo threading do Python. O interpretador padrão do Python (CPython) possui algo chamado Global Interpreter Lock (GIL). Em termos simples, o GIL é um mecanismo que permite que apenas uma thread execute código Python por vez dentro de um único processo. Por isso ao aumentar o numero de threads eu noto que fica mais lento.
+
+Para o teste de Senha Alfanumérica (minúsculas) de 6 Dígitos:Z
+| Abordagem             | Tempo de Execução em segundos           |
+|-----------------------|-----------------------------------------|
+| Sequencial            | 4.6678                                  |
+| Paralela (4 Threads)  | 139.6167                                | 
+| Distribuída (2 Clientes)| 14.0052                               | 
 
 Análise de Escalabilidade:
-À medida que aumentamos o número de caracteres (ex: de `string.digits` para `string.ascii_lowercase`) ou o comprimento da senha, o tempo de execução da solução sequencial cresce exponencialmente. As soluções paralela e distribuída conseguem mitigar esse crescimento ao dividir o trabalho. A solução distribuída demonstra maior escalabilidade, pois podemos adicionar mais máquinas (clientes) para lidar com um espaço de busca muito maior, algo que a solução paralela não pode fazer além do limite de núcleos da máquina local.
-
 =======================================================
 DESAFIOS ENCONTRADOS E MELHORIAS PROPOSTAS
 =======================================================

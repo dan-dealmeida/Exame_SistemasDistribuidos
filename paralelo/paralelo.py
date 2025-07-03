@@ -79,7 +79,9 @@ def encontrar_senha_paralelo(senha_alvo, caracteres, num_threads):
 if __name__ == "__main__":
     # --- Configuração ---
     CARACTERES_POSSIVEIS = string.digits
-    SENHA_ALVO = "987123"
+    CARACTERES_POSSIVEIS += string.ascii_lowercase 
+
+    SENHA_ALVO = "987asd"
     NUMERO_DE_THREADS = 4 # Ajuste conforme o número de núcleos do seu processador
 
     print(f"Iniciando quebra de senha para '{SENHA_ALVO}' com {NUMERO_DE_THREADS} threads...")
